@@ -16,20 +16,43 @@
  */
 package com.trinopolo.cursojs.loja_web_rest.service;
 
+import java.util.Date;
+
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
+import com.trinopolo.cursojs.loja_web_rest.model.Avaliacao;
 import com.trinopolo.cursojs.loja_web_rest.model.Usuario;
 
 // The @Stateless annotation eliminates the need for manual transaction demarcation
 @Stateless
-public class UsuarioService {
+public class LojaService {
 
 	@Inject
 	private EntityManager em;
 
-	public void salvar(Usuario usuario) {
+	public void salvarUsuario(Usuario usuario) {
 		em.merge(usuario);
+	}
+
+	public void salvarAvaliacao(Avaliacao avaliacao) throws Exception {
+		if (avaliacao.getUsuario() == null) {
+			throw new Exception("Usuário é obrigatório");
+		}
+		if (avaliacao.getNota() == null) {
+			throw new Exception("Nota é obrigatório");
+		}
+		if (avaliacao.getTitulo() == null) {
+			throw new Exception("Título é obrigatório");
+		}
+		if (avaliacao.getDescricao() == null) {
+			throw new Exception("Descrição é obrigatório");
+		}
+
+		Integer ultima = em.createQuery("SELECT MAX(e.id) FROM Avaliacao AS e", Integer.class).getSingleResult();
+		avaliacao.setId(ultima + 1);
+		avaliacao.setData(new Date());
+		em.merge(avaliacao);
 	}
 }

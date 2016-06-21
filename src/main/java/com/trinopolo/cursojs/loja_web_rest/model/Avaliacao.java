@@ -24,6 +24,7 @@ public class Avaliacao implements Serializable {
 
 	@ManyToOne
 	private Usuario usuario;
+
 	private Integer nota;
 	private String titulo;
 	private String descricao;

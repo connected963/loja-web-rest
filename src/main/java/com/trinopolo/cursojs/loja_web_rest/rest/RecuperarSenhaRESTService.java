@@ -32,7 +32,7 @@ import javax.ws.rs.core.Response;
 
 import com.trinopolo.cursojs.loja_web_rest.dto.RecuperacaoSenhaDto;
 import com.trinopolo.cursojs.loja_web_rest.model.Usuario;
-import com.trinopolo.cursojs.loja_web_rest.service.UsuarioService;
+import com.trinopolo.cursojs.loja_web_rest.service.LojaService;
 
 @Path("/recuperar_senha")
 @RequestScoped
@@ -45,7 +45,7 @@ public class RecuperarSenhaRESTService {
 	UsuarioRESTService usuarioRestService;
 
 	@Inject
-	UsuarioService usuarioService;
+	LojaService usuarioService;
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -66,7 +66,7 @@ public class RecuperarSenhaRESTService {
 		}
 
 		usuario.setSenha(Integer.toString((int) (Math.random() * 10000)));
-		usuarioService.salvar(usuario);
+		usuarioService.salvarUsuario(usuario);
 
 		try {
 			com.trinopolo.cursojs.loja_web_rest.util.EnvioEmail.enviarEmail(usuario.getEmail(), "Recuperação de Senha",

@@ -31,7 +31,7 @@ import javax.ws.rs.core.Response;
 
 import com.trinopolo.cursojs.loja_web_rest.dto.TrocarSenhaDto;
 import com.trinopolo.cursojs.loja_web_rest.model.Usuario;
-import com.trinopolo.cursojs.loja_web_rest.service.UsuarioService;
+import com.trinopolo.cursojs.loja_web_rest.service.LojaService;
 
 @Path("/trocar_senha")
 @RequestScoped
@@ -44,7 +44,7 @@ public class TrocarSenhaRESTService {
 	UsuarioRESTService usuarioRestService;
 
 	@Inject
-	UsuarioService usuarioService;
+	LojaService usuarioService;
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -95,7 +95,7 @@ public class TrocarSenhaRESTService {
 		}
 
 		usuario.setSenha(dto.getNova());
-		usuarioService.salvar(usuario);
+		usuarioService.salvarUsuario(usuario);
 
 		return Response.status(Response.Status.OK).build();
 
