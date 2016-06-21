@@ -24,6 +24,9 @@ public class Produto implements Serializable {
 	private Integer quantidadeEmEstoque;
 	private Float preco;
 	private String urlFoto;
+	private Integer nota;
+	private Integer avaliacoes;
+
 	private static final long serialVersionUID = 1L;
 
 	public Produto() {
@@ -84,6 +87,22 @@ public class Produto implements Serializable {
 
 	public void setCategoria(String categoria) {
 		this.categoria = categoria;
+	}
+
+	public Integer getNota() {
+		return nota;
+	}
+
+	public void setNota(Integer nota) {
+		this.nota = nota;
+	}
+
+	public Integer getAvaliacoes() {
+		return avaliacoes;
+	}
+
+	public void setAvaliacoes(Integer avaliacoes) {
+		this.avaliacoes = avaliacoes;
 	}
 
 	@Override
