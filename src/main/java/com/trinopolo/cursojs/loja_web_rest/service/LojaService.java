@@ -52,6 +52,9 @@ public class LojaService {
 		}
 
 		Integer ultima = em.createQuery("SELECT MAX(e.id) FROM Avaliacao AS e", Integer.class).getSingleResult();
+		if (ultima == null) {
+			ultima = 0;
+		}
 		avaliacao.setId(ultima + 1);
 		avaliacao.setData(new Date());
 		em.merge(avaliacao);
@@ -69,6 +72,9 @@ public class LojaService {
 		}
 
 		Integer ultima = em.createQuery("SELECT MAX(e.id) FROM ItemCarrinho AS e", Integer.class).getSingleResult();
+		if (ultima == null) {
+			ultima = 0;
+		}
 		item.setId(ultima + 1);
 		em.merge(item);
 	}
