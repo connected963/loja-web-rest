@@ -23,6 +23,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
 import com.trinopolo.cursojs.loja_web_rest.model.Avaliacao;
+import com.trinopolo.cursojs.loja_web_rest.model.ItemCarrinho;
 import com.trinopolo.cursojs.loja_web_rest.model.Usuario;
 
 // The @Stateless annotation eliminates the need for manual transaction demarcation
@@ -54,5 +55,29 @@ public class LojaService {
 		avaliacao.setId(ultima + 1);
 		avaliacao.setData(new Date());
 		em.merge(avaliacao);
+	}
+
+	public void adicionarItemCarrinho(ItemCarrinho item) throws Exception {
+		if (item.getUsuario() == null) {
+			throw new Exception("Usuário é obrigatório");
+		}
+		if (item.getProduto() == null) {
+			throw new Exception("Nota é obrigatório");
+		}
+		if (item.getQuantidade() == null) {
+			item.setQuantidade(1);
+		}
+
+		Integer ultima = em.createQuery("SELECT MAX(e.id) FROM ItemCarrinho AS e", Integer.class).getSingleResult();
+		item.setId(ultima + 1);
+		em.merge(item);
+	}
+
+	public void atualizarItemCarrinho(ItemCarrinho item) throws Exception {
+		em.merge(item);
+	}
+
+	public void removerItemCarrinho(Integer id) throws Exception {
+		em.remove(em.find(ItemCarrinho.class, id));
 	}
 }
