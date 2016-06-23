@@ -67,7 +67,7 @@ public class EnvioEmail {
 		MimeMessage message = new MimeMessage(session);
 
 		// Define remetente
-		message.setFrom(new InternetAddress("FTEC <treinamentojavaflexxo@gmail.com>"));
+		message.setFrom(new InternetAddress("Não Responda <treinamentojavaflexxo@gmail.com>"));
 
 		// Adiciona o destinatário
 		message.addRecipients(Message.RecipientType.TO, destinatario);

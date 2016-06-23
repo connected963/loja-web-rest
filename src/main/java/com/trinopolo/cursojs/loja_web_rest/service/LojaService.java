@@ -17,13 +17,16 @@
 package com.trinopolo.cursojs.loja_web_rest.service;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 import com.trinopolo.cursojs.loja_web_rest.model.Avaliacao;
 import com.trinopolo.cursojs.loja_web_rest.model.ItemCarrinho;
+import com.trinopolo.cursojs.loja_web_rest.model.Pedido;
 import com.trinopolo.cursojs.loja_web_rest.model.Usuario;
 
 // The @Stateless annotation eliminates the need for manual transaction demarcation
@@ -51,11 +54,7 @@ public class LojaService {
 			throw new Exception("Descrição é obrigatório");
 		}
 
-		Integer ultima = em.createQuery("SELECT MAX(e.id) FROM Avaliacao AS e", Integer.class).getSingleResult();
-		if (ultima == null) {
-			ultima = 0;
-		}
-		avaliacao.setId(ultima + 1);
+		avaliacao.setId(null);
 		avaliacao.setData(new Date());
 		em.merge(avaliacao);
 	}
@@ -71,11 +70,7 @@ public class LojaService {
 			item.setQuantidade(1);
 		}
 
-		Integer ultima = em.createQuery("SELECT MAX(e.id) FROM ItemCarrinho AS e", Integer.class).getSingleResult();
-		if (ultima == null) {
-			ultima = 0;
-		}
-		item.setId(ultima + 1);
+		item.setId(null);
 		em.merge(item);
 	}
 
@@ -85,5 +80,32 @@ public class LojaService {
 
 	public void removerItemCarrinho(Integer id) throws Exception {
 		em.remove(em.find(ItemCarrinho.class, id));
+	}
+
+	public List<ItemCarrinho> buscarItensCarrinhoPorUsuario(Integer id) {
+		TypedQuery<ItemCarrinho> query = em.createQuery("select e from ItemCarrinho as e where e.usuario.id = :id", ItemCarrinho.class);
+		query.setParameter("id", id);
+		return query.getResultList();
+	}
+
+	public void salvarPedido(Pedido pedido) throws Exception {
+
+		if (pedido.getUsuario() == null || pedido.getUsuario().getId() == null) {
+			throw new Exception("Campo usuário é obrigatório");
+		}
+
+		pedido.setId(null);
+		pedido.setData(new Date());
+
+		pedido.getItens().forEach(item -> {
+			item.setId(null);
+		});
+
+		em.merge(pedido);
+
+		List<ItemCarrinho> itens = buscarItensCarrinhoPorUsuario(pedido.getUsuario().getId());
+		for (ItemCarrinho itemCarrinho : itens) {
+			em.remove(itemCarrinho);
+		}
 	}
 }

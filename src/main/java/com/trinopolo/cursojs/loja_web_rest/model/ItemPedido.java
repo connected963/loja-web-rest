@@ -7,14 +7,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 /**
  * Entity implementation class for Entity: ItemCarrinho
  *
  */
 @Entity
-
-public class ItemCarrinho implements Serializable {
+public class ItemPedido implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,14 +23,14 @@ public class ItemCarrinho implements Serializable {
 	private Integer quantidade;
 
 	@ManyToOne
-	private Usuario usuario;
-
-	@ManyToOne
 	private Produto produto;
+
+	@Transient
+	private Usuario usuario;
 
 	private static final long serialVersionUID = 1L;
 
-	public ItemCarrinho() {
+	public ItemPedido() {
 		super();
 	}
 
@@ -50,14 +50,6 @@ public class ItemCarrinho implements Serializable {
 		this.quantidade = quantidade;
 	}
 
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
-
 	public Produto getProduto() {
 		return produto;
 	}
@@ -66,9 +58,17 @@ public class ItemCarrinho implements Serializable {
 		this.produto = produto;
 	}
 
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
 	@Override
 	public String toString() {
-		return "ItemCarrinho [id=" + id + ", quantidade=" + quantidade + ", usuario=" + usuario + ", produto=" + produto + "]";
+		return "ItemCarrinho [id=" + id + ", quantidade=" + quantidade + ", produto=" + produto + "]";
 	}
 
 }

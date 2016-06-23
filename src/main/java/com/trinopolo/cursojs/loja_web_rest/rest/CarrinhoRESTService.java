@@ -24,7 +24,6 @@ import java.util.Map;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -39,9 +38,9 @@ import javax.ws.rs.core.Response;
 import com.trinopolo.cursojs.loja_web_rest.model.ItemCarrinho;
 import com.trinopolo.cursojs.loja_web_rest.service.LojaService;
 
-@Path("/item_carrinho")
+@Path("/carrinho")
 @RequestScoped
-public class ItemCarrinhoRESTService {
+public class CarrinhoRESTService {
 
 	@Inject
 	EntityManager em;
@@ -67,9 +66,11 @@ public class ItemCarrinhoRESTService {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response atualizar(ItemCarrinho item) {
+	public Response atualizar(List<ItemCarrinho> itens) {
 		try {
-			lojaService.atualizarItemCarrinho(item);
+			for (ItemCarrinho item : itens) {
+				lojaService.atualizarItemCarrinho(item);
+			}
 			return Response.status(Response.Status.OK).build();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -100,9 +101,7 @@ public class ItemCarrinhoRESTService {
 	@Path("/{id}")
 	public List<ItemCarrinho> buscar(@PathParam("id") Integer id) {
 		try {
-			TypedQuery<ItemCarrinho> query = em.createQuery("select e from ItemCarrinho as e where e.usuario.id = :id", ItemCarrinho.class);
-			query.setParameter("id", id);
-			return query.getResultList();
+			return lojaService.buscarItensCarrinhoPorUsuario(id);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new LinkedList<>();
