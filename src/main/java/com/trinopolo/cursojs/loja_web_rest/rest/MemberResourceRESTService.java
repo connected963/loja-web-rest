@@ -66,14 +66,14 @@ public class MemberResourceRESTService {
     MemberRegistration registration;
 
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
     public List<Member> listAllMembers() {
         return repository.findAllOrderedByName();
     }
 
     @GET
     @Path("/{id:[0-9][0-9]*}")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
     public Member lookupMemberById(@PathParam("id") long id) {
         Member member = repository.findById(id);
         if (member == null) {
@@ -88,7 +88,7 @@ public class MemberResourceRESTService {
      */
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
     public Response createMember(Member member) {
 
         Response.ResponseBuilder builder = null;

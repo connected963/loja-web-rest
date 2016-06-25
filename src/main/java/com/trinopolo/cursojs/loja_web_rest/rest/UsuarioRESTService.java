@@ -39,7 +39,7 @@ public class UsuarioRESTService {
 	EntityManager em;
 
 	@GET
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	public List<Usuario> buscarTodos() {
 		TypedQuery<Usuario> query = em.createQuery("SELECT e FROM Usuario AS e ORDER BY e.nome", Usuario.class);
 		return query.getResultList();
@@ -47,7 +47,7 @@ public class UsuarioRESTService {
 
 	@GET
 	@Path("/{chave}")
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	public Usuario buscarPorEmail(@PathParam("chave") String chave) {
 		Integer id = null;
 		String email = null;

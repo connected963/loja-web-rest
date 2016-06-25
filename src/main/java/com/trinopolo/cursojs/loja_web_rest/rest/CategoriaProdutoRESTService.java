@@ -35,7 +35,7 @@ public class CategoriaProdutoRESTService {
 	EntityManager em;
 
 	@GET
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	public List<String> buscarTodos() {
 		TypedQuery<String> query = em.createQuery("SELECT DISTINCT(e.categoria) FROM Produto AS e ORDER BY e.categoria", String.class);
 		return query.getResultList();

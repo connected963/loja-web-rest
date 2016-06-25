@@ -50,7 +50,7 @@ public class CarrinhoRESTService {
 
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	public Response adicionar(ItemCarrinho item) {
 		try {
 			lojaService.adicionarItemCarrinho(item);
@@ -65,7 +65,7 @@ public class CarrinhoRESTService {
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	public Response atualizar(List<ItemCarrinho> itens) {
 		try {
 			for (ItemCarrinho item : itens) {
@@ -81,7 +81,7 @@ public class CarrinhoRESTService {
 	}
 
 	@DELETE
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	@Path("/{id}")
 	public Response remover(@PathParam("id") Integer id) {
 		try {
@@ -96,7 +96,7 @@ public class CarrinhoRESTService {
 	}
 
 	@GET
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/{id}")
 	public List<ItemCarrinho> buscar(@PathParam("id") Integer id) {

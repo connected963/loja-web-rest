@@ -46,7 +46,7 @@ public class PedidoRESTService {
 
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	public Response salvar(Pedido pedido) {
 		try {
 			lojaService.salvarPedido(pedido);
@@ -60,7 +60,7 @@ public class PedidoRESTService {
 	}
 
 	@GET
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/{id}")
 	public Pedido buscar(@PathParam("id") Integer id) {

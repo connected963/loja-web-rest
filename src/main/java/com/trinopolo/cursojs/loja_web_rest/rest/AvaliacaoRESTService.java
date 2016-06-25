@@ -44,7 +44,7 @@ public class AvaliacaoRESTService {
 
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	public Response buscarPorProduto(Avaliacao avaliacao) {
 		try {
 			lojaService.salvarAvaliacao(avaliacao);

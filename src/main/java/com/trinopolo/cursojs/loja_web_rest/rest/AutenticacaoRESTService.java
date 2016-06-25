@@ -44,7 +44,7 @@ public class AutenticacaoRESTService {
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	public Response autentica(AutenticacaoDto dto) {
 		if (dto.getEmail() != null && dto.getEmail().trim().length() > 0) {
 

@@ -48,7 +48,7 @@ public class TrocarSenhaRESTService {
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	public Response trocar(TrocarSenhaDto dto) {
 
 		if (dto.getUsuarioId() == null) {

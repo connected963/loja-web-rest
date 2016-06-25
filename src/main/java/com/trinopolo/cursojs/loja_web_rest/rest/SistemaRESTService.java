@@ -14,7 +14,7 @@ import javax.ws.rs.core.MediaType;
 public class SistemaRESTService {
 	
 	@GET
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
     public String data() {
         return new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date());
     }

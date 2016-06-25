@@ -37,7 +37,7 @@ public class BannersRESTService {
 	EntityManager em;
 
 	@GET
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	public List<Banner> buscarTodos() {
 		TypedQuery<Banner> query = em.createQuery("SELECT e FROM Banner AS e", Banner.class);
 		return query.getResultList();

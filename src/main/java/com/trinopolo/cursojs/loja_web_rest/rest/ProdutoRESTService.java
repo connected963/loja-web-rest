@@ -36,7 +36,7 @@ public class ProdutoRESTService {
 
 	@GET
 	@Path("/{id}")
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	public Produto buscarPorId(@PathParam("id") Integer id) {
 		if (id != null) {
 			return em.find(Produto.class, id);

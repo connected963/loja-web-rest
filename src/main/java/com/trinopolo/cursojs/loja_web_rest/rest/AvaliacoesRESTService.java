@@ -39,7 +39,7 @@ public class AvaliacoesRESTService {
 
 	@GET
 	@Path("/{produtoId}")
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	public List<Avaliacao> buscarPorProduto(@PathParam("produtoId") Integer produtoId) {
 		TypedQuery<Avaliacao> query = em.createQuery("SELECT e FROM Avaliacao AS e WHERE e.produtoId = :produtoId ORDER BY e.data", Avaliacao.class);
 		query.setParameter("produtoId", produtoId);

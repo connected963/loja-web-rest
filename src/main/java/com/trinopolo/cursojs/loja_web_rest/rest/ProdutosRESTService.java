@@ -39,7 +39,7 @@ public class ProdutosRESTService {
 	EntityManager em;
 
 	@GET
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	public List<Produto> buscarTodos() {
 		TypedQuery<Produto> query = em.createQuery("SELECT e FROM Produto AS e ORDER BY e.nome", Produto.class);
 		return query.getResultList();
@@ -47,7 +47,7 @@ public class ProdutosRESTService {
 
 	@GET
 	@Path("/{categoria}")
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	public List<Produto> buscarPorCategoria(@PathParam("categoria") String categoria) {
 		if (categoria != null) {
 			TypedQuery<Produto> query = em.createQuery("SELECT e FROM Produto AS e WHERE e.categoria = :categoria", Produto.class);

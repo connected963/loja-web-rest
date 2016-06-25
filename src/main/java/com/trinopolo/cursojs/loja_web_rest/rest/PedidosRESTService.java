@@ -44,7 +44,7 @@ public class PedidosRESTService {
 	LojaService lojaService;
 
 	@GET
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/{usuarioId}")
 	public List<Pedido> buscar(@PathParam("usuarioId") Integer usuarioId) {
