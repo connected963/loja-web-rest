@@ -16,6 +16,7 @@
  */
 package com.trinopolo.cursojs.loja_web_rest.rest;
 
+import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,6 +31,11 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.ResponseBuilder;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.PropertyException;
 
 import com.trinopolo.cursojs.loja_web_rest.model.Pedido;
 import com.trinopolo.cursojs.loja_web_rest.service.LojaService;
@@ -65,6 +71,30 @@ public class PedidoRESTService {
 	@Path("/{id}")
 	public Pedido buscar(@PathParam("id") Integer id) {
 		return em.find(Pedido.class, id);
+	}
+
+	@GET
+	@Produces(MediaType.APPLICATION_XML)
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/{id}/xml")
+	public Response downloadXML(@PathParam("id") Integer id) {
+		Pedido pedido = em.find(Pedido.class, id);
+		try {
+			JAXBContext context = JAXBContext.newInstance("com.trinopolo.cursojs.loja_web_rest.model");
+			Marshaller m = context.createMarshaller();
+			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			m.marshal(pedido, baos);
+
+			ResponseBuilder response = Response.ok(baos.toByteArray(), MediaType.APPLICATION_XML);
+			response.header("Content-Disposition", "attachment; filename=pedido-" + id + ".xml");
+			return response.build();
+		} catch (PropertyException e) {
+			e.printStackTrace();
+		} catch (JAXBException e) {
+			e.printStackTrace();
+		}
+		return Response.status(Response.Status.OK).build();
 	}
 
 }

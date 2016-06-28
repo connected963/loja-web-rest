@@ -1,24 +1,40 @@
 package com.trinopolo.cursojs.loja_web_rest.model;
 
 import java.io.Serializable;
-import java.lang.Boolean;
-import java.lang.String;
-import javax.persistence.*;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * Entity implementation class for Entity: Usuario
  *
  */
 @Entity
-
+@XmlRootElement(name = "usuario")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Usuario implements Serializable {
 
 	@Id
+	@XmlElement
 	private Integer id;
+
+	@XmlElement
 	private String nome;
+
+	@XmlElement
 	private String email;
+
+	@XmlTransient
 	private String senha;
+
+	@XmlElement
 	private Boolean ativo;
+
 	private static final long serialVersionUID = 1L;
 
 	public Usuario() {
