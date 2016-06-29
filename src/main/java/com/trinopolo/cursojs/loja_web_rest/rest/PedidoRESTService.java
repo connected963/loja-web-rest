@@ -80,7 +80,7 @@ public class PedidoRESTService {
 	public Response downloadXML(@PathParam("id") Integer id) {
 		Pedido pedido = em.find(Pedido.class, id);
 		try {
-			JAXBContext context = JAXBContext.newInstance("com.trinopolo.cursojs.loja_web_rest.model");
+			JAXBContext context = JAXBContext.newInstance(Pedido.class);
 			Marshaller m = context.createMarshaller();
 			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
